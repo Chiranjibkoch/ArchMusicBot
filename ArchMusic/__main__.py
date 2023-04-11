@@ -20,7 +20,7 @@ from ArchMusic import (
 from ArchMusic.Modules import ALL_MODULES
 
 
-async def fallen_startup():
+async def arch_startup():
     LOGGER.info("[•] Loading Modules...")
     for module in ALL_MODULES:
         importlib.import_module("ArchMusic.Modules." + module)
