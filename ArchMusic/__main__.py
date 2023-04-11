@@ -66,5 +66,5 @@ async def fallen_startup():
 
 
 if __name__ == "__main__":
-    asyncio.get_event_loop().run_until_complete(fallen_startup())
+    asyncio.get_event_loop().run_until_complete(arch_startup())
     LOGGER.error("Arch Music Bot Stopped.")
