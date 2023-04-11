@@ -11,7 +11,7 @@ from ArchMusic.Helpers.dossier import *
 
 @app.on_message(filters.command(["start"]) & ~filters.forwarded)
 @app.on_edited_message(filters.command(["start"]) & ~filters.forwarded)
-async def fallen_st(_, message: Message):
+async def arch_st(_, message: Message):
     if message.chat.type == ChatType.PRIVATE:
         if len(message.text.split()) > 1:
             cmd = message.text.split(None, 1)[1]

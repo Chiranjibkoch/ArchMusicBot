@@ -25,7 +25,7 @@ from ArchMusic import (
     LOGGER,
     app,
     app2,
-    fallendb,
+    archdb,
     pytgcalls,
 )
 from ArchMusic.Helpers.active import add_active_chat, is_active_chat, stream_on
@@ -44,7 +44,7 @@ from ArchMusic.Helpers.thumbnails import gen_qthumb, gen_thumb
     & ~filters.via_bot
 )
 async def play(_, message: Message):
-    fallen = await message.reply_text("processing,please wait..")
+    arch = await message.reply_text("processing,please wait..")
     try:
         await message.delete()
     except:
@@ -54,7 +54,7 @@ async def play(_, message: Message):
         try:
             get = await app.get_chat_member(message.chat.id, ASS_ID)
         except ChatAdminRequired:
-            return await fallen.edit_text(
+            return await arch.edit_text(
                 f"dont have permission to invite {BOT_NAME} Assistant To {message.chat.title}."
             )
         if get.status == ChatMemberStatus.BANNED:
@@ -68,7 +68,7 @@ async def play(_, message: Message):
                     ]
                 ]
             )
-            return await fallen.edit_text(
+            return await arch.edit_text(
                 text=f"» {BOT_NAME} assistant banned in {message.chat.title}\n\n  ɪᴅ : `{ASS_ID}`\n𖢵 ɴᴀᴍᴇ : {ASS_MENTION}\n ᴜsᴇʀɴᴀᴍᴇ : @{ASS_USERNAME}\n\nplease unban first assistant and start playing...",
                 reply_markup=unban_butt,
             )
@@ -83,28 +83,28 @@ async def play(_, message: Message):
             try:
                 invitelink = await app.export_chat_invite_link(message.chat.id)
             except ChatAdminRequired:
-                return await fallen.edit_text(
+                return await arch.edit_text(
                     f"i dont have permission to invite users via link {BOT_NAME} assistant to {message.chat.title}."
                 )
             except Exception as ex:
-                return await fallen.edit_text(
+                return await arch.edit_text(
                     f"invitation failed {BOT_NAME} assistant to {message.chat.title}.\n\n**Ʀᴇᴀsᴏɴ :** `{ex}`"
                 )
         if invitelink.startswith("https://t.me/+"):
             invitelink = invitelink.replace("https://t.me/+", "https://t.me/joinchat/")
-        anon = await fallen.edit_text(
+        anon = await arch.edit_text(
             f"ᴘʟᴇᴀSᴇ ᴡᴀꞮᴛ...\n\nɪɴᴠɪᴛɪɴɢ {ASS_NAME} ᴛᴏ {message.chat.title}."
         )
         try:
             await app2.join_chat(invitelink)
             await asyncio.sleep(2)
-            await fallen.edit_text(
+            await arch.edit_text(
                 f"{ASS_NAME} ᴊᴏɪɴᴇᴅ Sᴜᴄᴄᴇssғᴜʟʟʏ,\n\nSᴛᴀʀᴛɪɴɢ Sᴛʀᴇᴀᴍ..."
             )
         except UserAlreadyParticipant:
             pass
         except Exception as ex:
-            return await fallen.edit_text(
+            return await arch.edit_text(
                 f"Ғᴀɪʟᴇᴅ ᴛᴏ Ɪɴᴠɪᴛᴇ {BOT_NAME} ᴀSSꞮSᴛᴀɴᴛ ᴛᴏ {message.chat.title}.\n\n**Ʀᴇᴀsᴏɴ :** `{ex}`"
             )
         try:
@@ -147,17 +147,17 @@ async def play(_, message: Message):
                 secmul *= 60
 
         except Exception as e:
-            return await fallen.edit_text(f"SᴏᴍᴇᴛʜꞮɴɢ ᴡᴇɴᴛ ᴡƦᴏɴɢ\n\n**ᴇƦƦᴏƦ :** `{e}`")
+            return await arch.edit_text(f"SᴏᴍᴇᴛʜꞮɴɢ ᴡᴇɴᴛ ᴡƦᴏɴɢ\n\n**ᴇƦƦᴏƦ :** `{e}`")
 
         if (dur / 60) > DURATION_LIMIT:
-            return await fallen.edit_text(
+            return await arch.edit_text(
                 f"» Sᴏʀʀʏ ʙᴀʙʏ, ᴛʀᴀᴄᴋ ʟᴏɴɢᴇʀ ᴛʜᴀɴ  {DURATION_LIMIT} ᴍꞮɴᴜᴛᴇS ᴀƦᴇ ɴᴏᴛ ᴀʟʟᴏᴡᴇᴅ ᴛᴏ ᴘʟᴀʏ ᴏɴ {BOT_NAME}."
             )
         file_path = audio_dl(url)
     else:
         if len(message.command) < 2:
-            return await fallen.edit_text("Wʜᴀᴛ ᴅᴏ ʏᴏᴜ ᴡᴀɴɴᴀ ᴘʟᴀʏ ? ")
-        await fallen.edit_text("🔎")
+            return await arch.edit_text("Wʜᴀᴛ ᴅᴏ ʏᴏᴜ ᴡᴀɴɴᴀ ᴘʟᴀʏ ? ")
+        await arch.edit_text("🔎")
         query = message.text.split(None, 1)[1]
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
@@ -173,10 +173,10 @@ async def play(_, message: Message):
 
         except Exception as e:
             LOGGER.error(str(e))
-            return await fallen.edit("Ғᴀɪʟᴇᴅ ᴛᴏ ᴘƦᴏᴄᴇSS ᴏ̨ᴜᴇƦʏ, ᴛʀʏ ᴘʟᴀʏꞮɴɢ ᴀɢᴀꞮɴ...")
+            return await arch.edit("Ғᴀɪʟᴇᴅ ᴛᴏ ᴘƦᴏᴄᴇSS ᴏ̨ᴜᴇƦʏ, ᴛʀʏ ᴘʟᴀʏꞮɴɢ ᴀɢᴀꞮɴ...")
 
         if (dur / 60) > DURATION_LIMIT:
-            return await fallen.edit(
+            return await arch.edit(
                 f"» Sᴏʀʀʏ , ᴛƦᴀᴄᴋ ʟᴏɴɢᴇƦ ᴛʜᴀɴ  {DURATION_LIMIT} ᴍꞮɴᴜᴛᴇS ᴀʀᴇ ɴᴏᴛ ᴀʟʟᴏᴡᴇᴅ ᴛᴏ ᴘʟᴀʏ ᴏɴ {BOT_NAME}."
             )
         file_path = audio_dl(url)
@@ -195,7 +195,7 @@ async def play(_, message: Message):
             ruser,
             message.from_user.id,
         )
-        position = len(fallendb.get(message.chat.id))
+        position = len(archdb.get(message.chat.id))
         qimg = await gen_qthumb(videoid, message.from_user.id)
         await message.reply_photo(
             photo=qimg,
@@ -212,15 +212,15 @@ async def play(_, message: Message):
             )
 
         except NoActiveGroupCall:
-            return await fallen.edit_text(
+            return await arch.edit_text(
                 "**» ɴᴏ ᴀᴄᴛɪᴠᴇ ᴠɪᴅᴇᴏᴄʜᴀᴛ ғᴏᴜɴᴅ.**\n\nᴩʟᴇᴀsᴇ ᴍᴀᴋᴇ sᴜʀᴇ ʏᴏᴜ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ᴠɪᴅᴇᴏᴄʜᴀᴛ."
             )
         except TelegramServerError:
-            return await fallen.edit_text(
+            return await arch.edit_text(
                 "» ᴛᴇʟᴇɢʀᴀᴍ ɪs ʜᴀᴠɪɴɢ sᴏᴍᴇ ɪɴᴛᴇʀɴᴀʟ ᴘʀᴏʙʟᴇᴍs, ᴘʟᴇᴀsᴇ ʀᴇsᴛᴀʀᴛ ᴛʜᴇ ᴠɪᴅᴇᴏᴄʜᴀᴛ ᴀɴᴅ ᴛʀʏ ᴀɢᴀɪɴ."
             )
         except UnMuteNeeded:
-            return await fallen.edit_text(
+            return await arch.edit_text(
                 f"» {BOT_NAME} ᴀssɪsᴛᴀɴᴛ ɪs ᴍᴜᴛᴇᴅ ᴏɴ ᴠɪᴅᴇᴏᴄʜᴀᴛ,\n\nᴘʟᴇᴀsᴇ ᴜɴᴍᴜᴛᴇ {ASS_MENTION} ᴏɴ ᴠɪᴅᴇᴏᴄʜᴀᴛ ᴀɴᴅ ᴛʀʏ ᴘʟᴀʏɪɴɢ ᴀɢᴀɪɴ."
             )
 
@@ -233,4 +233,4 @@ async def play(_, message: Message):
             reply_markup=buttons,
         )
 
-    return await fallen.delete()
+    return await arch.delete()

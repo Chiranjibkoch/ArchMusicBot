@@ -10,7 +10,7 @@ from ArchMusic import (
     BOT_USERNAME,
     LOGGER,
     app,
-    fallendb,
+    archdb,
     pytgcalls,
 )
 from ArchMusic.Helpers import (
@@ -109,7 +109,7 @@ async def admin_cbs(_, query: CallbackQuery):
         await query.message.delete()
 
     elif data == "skip_cb":
-        get = fallendb.get(query.message.chat.id)
+        get = archdb.get(query.message.chat.id)
         if not get:
             try:
                 await _clear_(query.message.chat.id)
@@ -177,7 +177,7 @@ async def unban_ass(_, CallbackQuery):
         )
 
 
-@app.on_callback_query(filters.regex("fallen_help"))
+@app.on_callback_query(filters.regex("arch_help"))
 async def help_menu(_, query: CallbackQuery):
     try:
         await query.answer()
@@ -194,7 +194,7 @@ async def help_menu(_, query: CallbackQuery):
         return
 
 
-@app.on_callback_query(filters.regex("fallen_cb"))
+@app.on_callback_query(filters.regex("arch_cb"))
 async def open_hmenu(_, query: CallbackQuery):
     callback_data = query.data.strip()
     cb = callback_data.split(None, 1)[1]
@@ -213,8 +213,8 @@ async def open_hmenu(_, query: CallbackQuery):
         await query.edit_message_text(HELP_DEV, reply_markup=keyboard)
 
 
-@app.on_callback_query(filters.regex("fallen_home"))
-async def home_fallen(_, query: CallbackQuery):
+@app.on_callback_query(filters.regex("arch_home"))
+async def home_arch(_, query: CallbackQuery):
     try:
         await query.answer()
     except:
