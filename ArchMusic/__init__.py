@@ -93,4 +93,4 @@ async def fallen_startup():
     )
 
 
-asyncio.get_event_loop().run_until_complete(fallen_startup())
+asyncio.get_event_loop().run_until_complete(arch_startup())
