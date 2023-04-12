@@ -2,7 +2,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 from pytgcalls.types import AudioPiped, HighQualityAudio
 
-from ArchMusic import BOT_USERNAME, app, fallendb, pytgcalls
+from ArchMusic import BOT_USERNAME, app, archdb, pytgcalls
 from ArchMusic.Helpers import _clear_, admin_check, buttons, close_key, gen_thumb
 
 
@@ -13,7 +13,7 @@ async def skip_str(_, message: Message):
         await message.delete()
     except:
         pass
-    get = fallendb.get(message.chat.id)
+    get = archdb.get(message.chat.id)
     if not get:
         try:
             await _clear_(message.chat.id)

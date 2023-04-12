@@ -11,7 +11,7 @@ from ArchMusic.Helpers import get_readable_time
 
 
 @app.on_message(filters.command("ping"))
-async def ping_fallen(_, message: Message):
+async def ping_arch(_, message: Message):
     hmm = await message.reply_photo(
         photo=config.PING_IMG, caption=f"{BOT_NAME} PONG......"
     )
