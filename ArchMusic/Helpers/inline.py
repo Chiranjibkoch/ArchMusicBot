@@ -27,7 +27,7 @@ pm_buttons = [
             url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
         )
     ],
-    [InlineKeyboardButton(text="HELP & COMMANDS", callback_data="fallen_help")],
+    [InlineKeyboardButton(text="HELP & COMMANDS", callback_data="arch_help")],
     [
         InlineKeyboardButton(text="SUPPORT CHANNEL", url=config.SUPPORT_CHANNEL),
         InlineKeyboardButton(text="SUPPORT CHAT", url=config.SUPPORT_CHAT),
@@ -59,15 +59,15 @@ helpmenu = [
     [
         InlineKeyboardButton(
             text="EVERYONE",
-            callback_data="fallen_cb help",
+            callback_data="arch_cb help",
         )
     ],
     [
-        InlineKeyboardButton(text="SUDO", callback_data="fallen_cb sudo"),
-        InlineKeyboardButton(text="OWNER", callback_data="fallen_cb owner"),
+        InlineKeyboardButton(text="SUDO", callback_data="arch_cb sudo"),
+        InlineKeyboardButton(text="OWNER", callback_data="arch_cb owner"),
     ],
     [
-        InlineKeyboardButton(text="BACK", callback_data="fallen_home"),
+        InlineKeyboardButton(text="BACK", callback_data="arch_home"),
         InlineKeyboardButton(text="CLOSE", callback_data="close"),
     ],
 ]
